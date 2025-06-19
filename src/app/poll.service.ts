@@ -12,7 +12,7 @@ export class PollService {
 
   constructor(private http: HttpClient) { }
 
-  createPoll(poll: Poll): Observable<Poll> {
+  createPoll(poll: Partial<Omit<Poll, "id">>): Observable<Poll> {
     return this.http.post<Poll>(this.baseUrl, poll);
   }
 
@@ -20,8 +20,8 @@ export class PollService {
     return this.http.get<Poll[]>(this.baseUrl);
   }
 
-  vota(pollId: number, optionIndex: number): Observable<void>{
-    const url = `${this.baseUrl}/vote}`;
+  vote(pollId: number, optionIndex: number): Observable<void>{
+    const url = `${this.baseUrl}/vote`;
     return this.http.post<void>(url, { pollId, optionIndex })
   }
 }
