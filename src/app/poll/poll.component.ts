@@ -29,6 +29,10 @@ export class PollComponent implements OnInit{
     this.loadPolls();
   }
 
+  get optionsLength(): number {
+    return this.newPoll.options?.length ?? 0;
+  }
+
   loadPolls() {
     this.pollService.getPolls().subscribe({
       next: (data) => {
@@ -39,6 +43,10 @@ export class PollComponent implements OnInit{
         console.error("Error fetching polls: ", error);
       }
     });
+  }
+
+  addOption() {
+    this.newPoll.options?.push({ optionText: '', voteCount: 0})
   }
 
   createPoll() {
